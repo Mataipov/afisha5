@@ -52,16 +52,6 @@ def reviews_view(request):
 
 
 
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
-def movie_view(request):
-    if request.method == 'GET':
-        movies = Movie.objects.all()
-        data = MovieListSerializer(movies, many=True).data
-        return Response(data=data)
-
-
-
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def one_review_view(request, id):
@@ -71,3 +61,12 @@ def one_review_view(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND, data={'error': 'Review not found'})
     if request.method == 'GET':
         return Response(ReviewListSerializer(review).data)
+
+@api_view(['GET'])
+def movies_reviews_view(request):
+    movies_reviews = Movie.objects.all()
+    data = MovieReviewListSerializer(movies_reviews, many=True).data
+    return Response(data=data)
+
+
+

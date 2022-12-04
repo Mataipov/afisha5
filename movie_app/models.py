@@ -23,7 +23,25 @@ class Movie(models.Model):
 
 
 class Review(models.Model):
+    rate = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5')
+    )
     text = models.TextField("Ваш отзыв")
     movie = models.ForeignKey(to=Movie, verbose_name='Отзыв к фильму',
                               related_name='reviews', on_delete=models.CASCADE,
                               null=True, blank=True)
+    stars = models.IntegerField(default=1, choices=rate)
+
+    @property
+    def movie_name(self):
+        try:
+            return self.movie.title
+        except:
+            return 'OSHIBKA'
+
+    def __str__(self):
+        return f"{self.movie}-{self.stars}"
