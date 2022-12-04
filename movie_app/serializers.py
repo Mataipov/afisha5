@@ -3,7 +3,7 @@ from rest_framework.exceptions import ValidationError
 
 from .models import *
 
-class DirectorSerializer(serializers.ModelSerializer):
+class DirectorListSerializer(serializers.ModelSerializer):
     movies = serializers.SerializerMethodField()
     movies_count = serializers.SerializerMethodField()
 
