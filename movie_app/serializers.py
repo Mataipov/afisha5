@@ -62,6 +62,12 @@ class MoviesBaseValidateSerializer(serializers.Serializer):
             raise ValidationError(f'Director with id={id} Not Found')
         return id
 
+class ReviewBaseValidateSerializer(serializers.Serializer):
+
+    text = serializers.CharField()
+
+
+
 
 class MoviesCreateSerializer(MoviesBaseValidateSerializer):
     def validate_title(self, title):

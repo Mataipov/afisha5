@@ -14,7 +14,7 @@ def directors_view(request):
         data = DirectorListSerializer(directors, many=True).data
         return Response(data=data)
     elif request.method == 'POST':
-        serializer = MoviesBaseValidateSerializer(data=request.data)
+        serializer = DirectorListSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(data={"message": "Director Data with errors!!!",
                                   "errors": serializer.errors},
@@ -85,7 +85,7 @@ def one_movie_view(request, id):
                                   "errors": serializer.errors},
                             status=status.HTTP_406_NOT_ACCEPTABLE)
         movie.title = request.data.get('title'),
-        movie.description = request.data.get('description'),
+        # movie.description = request.data.get('description'),
         movie.duration = request.data.get('duration'),
         movie.save()
 
@@ -101,7 +101,7 @@ def reviews_view(request):
         data = ReviewListSerializer(reviews, many=True).data
         return Response(data=data)
     elif request.method == 'POST':
-        serializer = MoviesBaseValidateSerializer(data=request.data)
+        serializer = ReviewListSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         review = Review.objects.create(
             text=request.data.get('text'),
