@@ -14,7 +14,7 @@ def directors_view(request):
         data = DirectorListSerializer(directors, many=True).data
         return Response(data=data)
     elif request.method == 'POST':
-        serializer = DirectorListSerializer(data=request.data)
+        serializer = MoviesBaseValidateSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(data={"message": "Director Data with errors!!!",
                                   "errors": serializer.errors},
@@ -79,7 +79,7 @@ def one_movie_view(request, id):
         return Response(data={"message": "Movie removed successfully!"},
                         status=status.HTTP_204_NO_CONTENT)
     elif request.method == 'PUT':
-        serializer = MovieListSerializer(data=request.data)
+        serializer = MoviesBaseValidateSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(data={"message": "Director Data with errors!!!",
                                   "errors": serializer.errors},
